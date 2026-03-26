@@ -6,8 +6,9 @@ function App() {
 
   const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=ritorno`
 
-  const [movieSearchResult, setMovieSearchResult] = useState()
+  const [movieSearchResult, setMovieSearchResult] = useState(null)
 
+  const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
 
@@ -21,13 +22,22 @@ function App() {
 
   }, [])
 
-  console.log(movieSearchResult)
+  // console.log(movieSearchResult)
+
+  function searchSubmit(e) {
+
+    e.preventDefault()
+
+    console.log('submit form')
+
+  }
 
   return (
     <>
 
-      <form>
-        <input type="text" />
+      <form onSubmit={searchSubmit}>
+        <input type="text" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+        {searchInput}
         <button type="submit">Search</button>
       </form>
 
