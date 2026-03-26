@@ -6,11 +6,9 @@ function App() {
 
   const [renderSearchResult, setRenderSearchResult] = useState('')
 
-
   const [searchResult, setSearchResult] = useState(null)
 
   const [queryInput, setQueryInput] = useState('')
-
 
   const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${queryInput}`
 
@@ -23,11 +21,9 @@ function App() {
 
         setSearchResult(data)
 
-
       })
 
   }, [queryInput])
-
   // console.log(movieSearchResult)
 
 
@@ -36,12 +32,10 @@ function App() {
   function searchSubmit(e) {
 
     e.preventDefault()
-
     setRenderSearchResult(searchResult)
 
   }
-
-  console.log(renderSearchResult)
+  // console.log(renderSearchResult)
 
   return (
     <>
@@ -51,15 +45,20 @@ function App() {
         <button type="submit">Search</button>
       </form>
 
-      <div>
+      <ul>
         {
           renderSearchResult?.results?.map(movie => (
-            <div key={movie.id}>
-              {movie.title} - {movie.original_title} - {movie.original_language} - {movie.vote_average}
-            </div>
+            <li key={movie.id}>
+              <ul>
+                <li>Movie: {movie.title}</li>
+                <li>Original Title: {movie.original_title}</li>
+                <li>Original Language: {movie.original_language}</li>
+                <li>Vote: {movie.vote_average}</li>
+              </ul>
+            </li>
           ))
         }
-      </div>
+      </ul>
 
     </>
   )
