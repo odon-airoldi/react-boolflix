@@ -4,10 +4,12 @@ function App() {
 
   const API_KEY = import.meta.env.VITE_API_KEY
 
-  const [renderSearchResult, setRenderSearchResult] = useState('')
+  const [searchResultMovie, setSearchResultMovie] = useState({ results: [] })
+  const [searchResultTv, setSearchResultTv] = useState({ results: [] })
+  const [searchResult, setSearchResult] = useState({})
 
-  const [searchResultMovie, setSearchResultMovie] = useState(null)
-  const [searchResultTv, setSearchResultTv] = useState(null)
+  const [renderSearchResult, setRenderSearchResult] = useState()
+
 
   const [queryInput, setQueryInput] = useState('')
 
@@ -35,7 +37,21 @@ function App() {
 
   }, [queryInput])
 
-  console.log(searchResultTv)
+
+
+  useEffect(() => {
+
+    setSearchResult({
+      results: [
+        ...searchResultTv.results,
+        ...searchResultMovie.results
+      ]
+    })
+
+  }, [searchResultTv, searchResultMovie])
+
+  console.log(searchResultTv.results)
+  console.log(searchResultMovie.results)
 
 
 
@@ -43,10 +59,11 @@ function App() {
   function searchSubmit(e) {
 
     e.preventDefault()
-    setRenderSearchResult({ ...searchResultTv, searchResultMovie })
+
+    setRenderSearchResult(searchResult)
+    console.log(searchResult)
 
   }
-  // console.log(renderSearchResult)
 
   return (
     <>
@@ -58,13 +75,13 @@ function App() {
 
       <ul>
         {
-          renderSearchResult?.results?.map(movie => (
-            <li key={movie.id}>
+          renderSearchResult?.results?.map(result => (
+            <li key={result.id}>
               <ul>
-                <li>Movie: {movie.title}</li>
-                <li>Original Title: {movie.original_title}</li>
-                <li>Original Language: {movie.original_language} <img src={`../public/lang/${movie.original_language}.svg`} /></li>
-                <li>Vote: {movie.vote_average}</li>
+                <li>Title: {result.title} { }</li>
+                <li>Original Title: {result.original_title}</li>
+                <li>Original Language: {result.original_language} <img src={`../public/lang/${result.original_language}.svg`} /></li>
+                <li>Vote: {result.vote_average}</li>
               </ul>
             </li >
           ))
