@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import '../node_modules/flag-icons/css/flag-icons.min.css'
 
 function App() {
 
@@ -53,7 +52,7 @@ function App() {
               <ul>
                 <li>Movie: {movie.title}</li>
                 <li>Original Title: {movie.original_title}</li>
-                <li>Original Language: <span className={`fi fi-${movie.original_language}`}></span></li>
+                <li>Original Language: {movie.original_language} <img src={`../public/lang/${movie.original_language}.svg`} /></li>
                 <li>Vote: {movie.vote_average}</li>
               </ul>
             </li >
