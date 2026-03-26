@@ -50,8 +50,7 @@ function App() {
 
   }, [searchResultTv, searchResultMovie])
 
-  console.log(searchResultTv.results)
-  console.log(searchResultMovie.results)
+  console.log(searchResult)
 
 
 
@@ -61,7 +60,6 @@ function App() {
     e.preventDefault()
 
     setRenderSearchResult(searchResult)
-    console.log(searchResult)
 
   }
 
@@ -78,8 +76,8 @@ function App() {
           renderSearchResult?.results?.map(result => (
             <li key={result.id}>
               <ul>
-                <li>Title: {result.title} { }</li>
-                <li>Original Title: {result.original_title}</li>
+                <li>Title: {result.title && result.title || result.name} { }</li>
+                <li>Original Title: {result.original_title && result.original_title || result.original_name}</li>
                 <li>Original Language: {result.original_language} <img src={`../public/lang/${result.original_language}.svg`} /></li>
                 <li>Vote: {result.vote_average}</li>
               </ul>
