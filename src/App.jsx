@@ -54,7 +54,9 @@ function App() {
       <div>
         {
           renderSearchResult?.results?.map(movie => (
-            <div>{movie.title}</div>
+            <div key={movie.id}>
+              {movie.title} - {movie.original_title} - {movie.original_language} - {movie.vote_average}
+            </div>
           ))
         }
       </div>
