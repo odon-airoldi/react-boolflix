@@ -6,11 +6,13 @@ function App() {
 
   const [renderSearchResult, setRenderSearchResult] = useState('')
 
-  const [searchResult, setSearchResult] = useState(null)
+  const [searchResultMovie, setSearchResultMovie] = useState(null)
+  const [searchResultTv, setSearchResultTv] = useState(null)
 
   const [queryInput, setQueryInput] = useState('')
 
   const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${queryInput}&language=it-IT`
+  const API_URL_TV = `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${queryInput}&language=it-IT`
 
 
   useEffect(() => {
@@ -19,12 +21,21 @@ function App() {
       .then(res => res.json())
       .then(data => {
 
-        setSearchResult(data)
+        setSearchResultMovie(data)
+
+      })
+
+    fetch(API_URL_TV)
+      .then(res => res.json())
+      .then(data => {
+
+        setSearchResultTv(data)
 
       })
 
   }, [queryInput])
-  // console.log(movieSearchResult)
+
+  console.log(searchResultTv)
 
 
 
@@ -32,7 +43,7 @@ function App() {
   function searchSubmit(e) {
 
     e.preventDefault()
-    setRenderSearchResult(searchResult)
+    setRenderSearchResult({ ...searchResultTv, searchResultMovie })
 
   }
   // console.log(renderSearchResult)
