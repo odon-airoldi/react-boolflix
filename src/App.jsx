@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import '../node_modules/flag-icons/css/flag-icons.min.css'
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
 
   const [queryInput, setQueryInput] = useState('')
 
-  const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${queryInput}`
+  const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${queryInput}&language=it-IT`
 
 
   useEffect(() => {
@@ -52,13 +53,13 @@ function App() {
               <ul>
                 <li>Movie: {movie.title}</li>
                 <li>Original Title: {movie.original_title}</li>
-                <li>Original Language: {movie.original_language}</li>
+                <li>Original Language: <span className={`fi fi-${movie.original_language}`}></span></li>
                 <li>Vote: {movie.vote_average}</li>
               </ul>
-            </li>
+            </li >
           ))
         }
-      </ul>
+      </ul >
 
     </>
   )
