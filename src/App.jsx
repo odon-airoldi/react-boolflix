@@ -76,10 +76,10 @@ function App() {
           renderSearchResult?.results?.map(result => (
             <li key={result.id}>
               <ul>
-                <li>Title: {result.title && result.title || result.name} { }</li>
+                <li>Title: {result.title && result.title || result.name}</li>
                 <li>Original Title: {result.original_title && result.original_title || result.original_name}</li>
-                <li>Original Language: {result.original_language} <img src={`../public/lang/${result.original_language}.svg`} /></li>
-                <li>Vote: {result.vote_average}</li>
+                <li>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</li>
+                <li>Vote: {Math.ceil(result.vote_average / 2)} - {result.vote_average}</li>
               </ul>
             </li >
           ))
