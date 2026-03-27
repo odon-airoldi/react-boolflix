@@ -1,0 +1,28 @@
+.bf-card-img {
+    aspect-ratio: 2/3;
+}
+
+.bf-card-overlay {
+    opacity: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+    overflow: hidden;
+}
+
+
+.bf-card:hover .bf-card-overlay {
+    opacity: 1;
+    transition: all 0.5s ease;
+
+}
+
+.bf-card-body {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 0.5s ease 0s, opacity 0.75s ease .25s;
+
+}
+
+.bf-card:hover .bf-card-body {
+    opacity: 1;
+    transform: translateY(0);
+}

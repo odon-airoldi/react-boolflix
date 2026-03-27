@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import AppHeader from './components/AppHeader'
+import './app.css'
 
 function App() {
 
@@ -88,25 +89,35 @@ function App() {
 
       <AppHeader searchSubmit={searchSubmit} queryInput={queryInput} setQueryInput={setQueryInput} />
 
-      <ul>
-        {
-          renderSearchResult?.results?.map(result => (
-            <li key={result.id}>
-              <ul>
-                <li>Title: {result.title && result.title || result.name}</li>
-                <li>Original Title: {result.original_title && result.original_title || result.original_name}</li>
-                <li>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</li>
-                <li>Vote: {voteStar(result.vote_average)}</li>
-                {result.poster_path &&
-                  <li>
-                    <img src={`https://image.tmdb.org/t/p/w185/${result.poster_path}`} />
-                  </li>}
-              </ul>
-            </li >
-          ))
-        }
-      </ul >
-
+      <section className="bg-dark">
+        <div className="container py-5">
+          <div className="row row-cols-4 g-1">
+            {
+              renderSearchResult?.results?.map(result => (
+                <div key={result.id}>
+                  <div className="bf-card position-relative">
+                    <div className="bf-card-img">
+                      {
+                        result.poster_path &&
+                        <img className="object-fit-cover w-100 h-100" src={`https://image.tmdb.org/t/p/w342/${result.poster_path}`} />
+                        || <div></div>
+                      }
+                    </div>
+                    <div className="bf-card-overlay position-absolute top-0 start-0 text-white w-100 h-100">
+                      <div className="bf-card-body position-absolute bottom-0 p-3 w-100">
+                        <div>Title: {result.title && result.title || result.name}</div>
+                        <div>Original Title: {result.original_title && result.original_title || result.original_name}</div>
+                        <div>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</div>
+                        <div>Vote: {voteStar(result.vote_average)}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
 
     </>
   )
