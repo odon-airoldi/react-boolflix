@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.min.css'
 import AppHeader from './components/AppHeader'
 import './app.css'
 
@@ -71,14 +72,14 @@ function App() {
 
     const value = Math.ceil(vote / 2)
     let i = 0
-    let star = ''
+    let stars = []
 
     while (i < value) {
-      star += '*'
+      stars.push(i + 1)
       i++
     }
 
-    return star
+    return stars
 
   }
 
@@ -105,10 +106,18 @@ function App() {
                     </div>
                     <div className="bf-card-overlay position-absolute top-0 start-0 text-white w-100 h-100">
                       <div className="bf-card-body position-absolute bottom-0 p-3 w-100">
-                        <div>Title: {result.title && result.title || result.name}</div>
+                        <h2 className="h5">{result.title && result.title || result.name}</h2>
                         <div>Original Title: {result.original_title && result.original_title || result.original_name}</div>
                         <div>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</div>
-                        <div>Vote: {voteStar(result.vote_average)}</div>
+                        {result.vote_average !== 0 &&
+                          <div className="d-flex"><span>Vote</span>
+                            {
+                              voteStar(result.vote_average).map((item, i) => (
+                                <i key={i} className="bi bi-star-fill ms-1"></i>
+                              ))
+                            }
+                          </div>
+                        }
                       </div>
                     </div>
                   </div>
