@@ -9,6 +9,7 @@ function App() {
   const [searchResult, setSearchResult] = useState({})
 
   const [renderSearchResult, setRenderSearchResult] = useState()
+  // const [voteAverage, setVoteAverage] = useState(0)
 
 
   const [queryInput, setQueryInput] = useState('')
@@ -54,6 +55,7 @@ function App() {
 
 
 
+  // search form submit
 
   function searchSubmit(e) {
 
@@ -62,6 +64,26 @@ function App() {
     setRenderSearchResult(searchResult)
 
   }
+
+  // vote average
+
+  function voteStar(vote) {
+
+    const value = Math.ceil(vote / 2)
+    let i = 0
+    let star = ''
+
+    while (i < value) {
+      star += '*'
+      i++
+
+    }
+
+    return star
+
+  }
+
+
 
   return (
     <>
@@ -79,12 +101,13 @@ function App() {
                 <li>Title: {result.title && result.title || result.name}</li>
                 <li>Original Title: {result.original_title && result.original_title || result.original_name}</li>
                 <li>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</li>
-                <li>Vote: {Math.ceil(result.vote_average / 2)} - {result.vote_average}</li>
+                <li>Vote: {voteStar(result.vote_average)}</li>
               </ul>
             </li >
           ))
         }
       </ul >
+
 
     </>
   )
