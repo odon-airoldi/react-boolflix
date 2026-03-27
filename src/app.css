@@ -1,3 +1,7 @@
+.bf-card {
+    cursor: pointer;
+}
+
 .bf-card-img {
     aspect-ratio: 2/3;
 }
@@ -8,18 +12,15 @@
     overflow: hidden;
 }
 
-
 .bf-card:hover .bf-card-overlay {
     opacity: 1;
     transition: all 0.5s ease;
-
 }
 
 .bf-card-body {
     opacity: 0;
     transform: translateY(100%);
     transition: transform 0.5s ease 0s, opacity 0.75s ease .25s;
-
 }
 
 .bf-card:hover .bf-card-body {

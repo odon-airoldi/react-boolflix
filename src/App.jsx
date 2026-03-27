@@ -101,7 +101,7 @@ function App() {
                       {
                         result.poster_path &&
                         <img className="object-fit-cover w-100 h-100" src={`https://image.tmdb.org/t/p/w342/${result.poster_path}`} />
-                        || <div></div>
+                        || <div className="bg-secondary w-100 h-100"></div>
                       }
                     </div>
                     <div className="bf-card-overlay position-absolute top-0 start-0 text-white w-100 h-100">
