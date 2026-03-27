@@ -51,7 +51,7 @@ function App() {
 
   }, [searchResultTv, searchResultMovie])
 
-  console.log(searchResult)
+  // console.log(searchResult)
 
 
 
@@ -76,7 +76,6 @@ function App() {
     while (i < value) {
       star += '*'
       i++
-
     }
 
     return star
@@ -102,6 +101,9 @@ function App() {
                 <li>Original Title: {result.original_title && result.original_title || result.original_name}</li>
                 <li>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</li>
                 <li>Vote: {voteStar(result.vote_average)}</li>
+                <li>
+                  <img src={`https://image.tmdb.org/t/p/w185/${result.poster_path}`} />
+                </li>
               </ul>
             </li >
           ))
