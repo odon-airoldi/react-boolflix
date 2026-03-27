@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import AppHeader from './components/AppHeader'
 
 function App() {
 
@@ -51,9 +53,6 @@ function App() {
 
   }, [searchResultTv, searchResultMovie])
 
-  // console.log(searchResult)
-
-
 
   // search form submit
 
@@ -87,10 +86,7 @@ function App() {
   return (
     <>
 
-      <form onSubmit={searchSubmit}>
-        <input type="text" value={queryInput} onChange={(e) => setQueryInput(e.target.value)} />
-        <button type="submit">Search</button>
-      </form>
+      <AppHeader searchSubmit={searchSubmit} queryInput={queryInput} setQueryInput={setQueryInput} />
 
       <ul>
         {
@@ -101,9 +97,10 @@ function App() {
                 <li>Original Title: {result.original_title && result.original_title || result.original_name}</li>
                 <li>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</li>
                 <li>Vote: {voteStar(result.vote_average)}</li>
-                <li>
-                  <img src={`https://image.tmdb.org/t/p/w185/${result.poster_path}`} />
-                </li>
+                {result.poster_path &&
+                  <li>
+                    <img src={`https://image.tmdb.org/t/p/w185/${result.poster_path}`} />
+                  </li>}
               </ul>
             </li >
           ))
