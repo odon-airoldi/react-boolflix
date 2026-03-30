@@ -13,22 +13,41 @@ function App() {
   const [searchResult, setSearchResult] = useState({})
 
   const [renderSearchResult, setRenderSearchResult] = useState()
-  // const [voteAverage, setVoteAverage] = useState(0)
 
+  const [movieCasts, setMovieCasts] = useState({});
 
   const [queryInput, setQueryInput] = useState('')
 
-  const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${queryInput}&language=it-IT`
+  const API_URL_MOVIE = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${queryInput}&language=it-IT`
   const API_URL_TV = `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${queryInput}&language=it-IT`
+
+
+
+  // function cast
+  function fetchMovieCast(movieId) {
+    const API_URL_MOVIE_CAST = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=it-IT`;
+
+    fetch(API_URL_MOVIE_CAST)
+      .then(res => res.json())
+      .then(data => {
+        setMovieCasts(prev => ({ ...prev, [movieId]: data.cast }))
+      })
+  }
 
 
   useEffect(() => {
 
-    fetch(API_URL)
+    fetch(API_URL_MOVIE)
       .then(res => res.json())
       .then(data => {
 
         setSearchResultMovie(data)
+
+        // fetch cast per ogni film
+        data.results.forEach(movie => {
+          fetchMovieCast(movie.id);
+        });
+
 
       })
 
@@ -41,6 +60,7 @@ function App() {
       })
 
   }, [queryInput])
+
 
 
 
@@ -66,6 +86,7 @@ function App() {
 
   }
 
+
   // vote average
 
   function voteStar(vote) {
@@ -82,6 +103,7 @@ function App() {
     return stars
 
   }
+
 
 
 
@@ -106,7 +128,7 @@ function App() {
                     </div>
                     <div className="bf-card-overlay position-absolute top-0 start-0 text-white w-100 h-100">
                       <div className="bf-card-body position-absolute bottom-0 p-3 w-100">
-                        <h2 className="h5">{result.title && result.title || result.name}</h2>
+                        <h2 className="h5">{result.title && result.title || result.name} {result.id}</h2>
                         <div>Original Title: {result.original_title && result.original_title || result.original_name}</div>
                         <div>Original Language: {result.original_language && <img src={`../public/lang/${result.original_language}.svg`} />}</div>
                         {result.vote_average !== 0 &&
@@ -118,6 +140,8 @@ function App() {
                             }
                           </div>
                         }
+
+                        Cast: {movieCasts[result.id]?.slice(0, 5).map(actor => actor.name).join(', ')}
                       </div>
                     </div>
                   </div>
